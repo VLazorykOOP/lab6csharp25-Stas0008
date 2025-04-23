@@ -1,58 +1,83 @@
-﻿// See https://aka.ms/new-console-template for more information
-/// <summary>
-///  Top-level statements 
-///  Код програми (оператори)  вищого рівня
-/// </summary>
-///
-Console.WriteLine("Lab6 C# ");
-AnyFunc();
+﻿using System.Data;
+using static System.Console;
 
-/// <summary>
-/// 
-///  Top-level statements must precede namespace and type declarations.
-/// At the top-level methods/functions can be defined and used
-/// На верхньому рівні можна визначати та використовувати методи/функції
-/// </summary>
-void AnyFunc()
+static void Task1()
 {
-    Console.WriteLine(" Some function in top-level");
-}
-Console.WriteLine("Problems 1 ");
-AnyFunc();
-//  приклад класів
-UserClass cl = new UserClass();
-cl.Name = " UserClass top-level ";
-User.UserClass cl2 = new();
-cl2.Name = " UserClass namespace User ";
-
-
-
-
-/// <summary>
-/// 
-/// Top-level statements must precede namespace and type declarations.
-/// Оператори верхнього рівня мають передувати оголошенням простору імен і типу.
-/// Створення класу(ів) або оголошенням простору імен є закіченням  іструкцій верхнього рівня
-/// 
-/// </summary>
-
-namespace User
-{
-    class UserClass
-    {
-        public string Name { get; set; }
-        public UserClass()
+    Company[] companies = new Company[]
         {
-            Name = "NoName";
-        }
-        UserClass(string n)
+            new InsuranceCompany("InSureCo", "USA", 0.12),
+            new InsuranceCompany("SafeLife", "Canada", 0.10),
+            new OilCompany("PetroMax", "USA", 7.8, 500),
+            new OilCompany("British petrolium", "Great Britain", 5.5, 340),
+            new Factory("AutoMakers", "Germany", 1200),
+            new Factory("TechManufact", "China", 3000),
+        };
+        
+        WriteLine("Original order:");
+        foreach (var company in companies)
         {
-            Name = n;
+            company.Show();
+            WriteLine();
         }
-    }
+        Array.Sort(companies, (a, b) =>
+        {
+            return a switch
+            {
+                OilCompany oc1 when b is OilCompany oc2 => oc1.CompareTo(oc2),
+                InsuranceCompany ic1 when b is InsuranceCompany ic2 => ic1.CompareTo(ic2),
+                Factory f1 when b is Factory f2 => f1.CompareTo(f2),
+                _ => 0
+            };
+        });
+        
+        WriteLine("Sorted companies by their specific CompareTo implementations:");
+        foreach (var company in companies)
+        {
+            company.Show();
+            WriteLine();
+        }
+}
+
+static void Task2()
+{
+    IProgramSoftware[] softwares = new IProgramSoftware[]
+        {
+            new Free("Notepad++", "Don Ho"),
+            new Shareware("WinRAR", "Rarlab", DateTime.Now.AddDays(-10), 40),
+            new Shareware("SomeTrialApp", "Trial Inc.", DateTime.Now.AddDays(-60), 30),
+            new Commercial("MS Office", "Microsoft", 199.99m, DateTime.Now.AddDays(-15), 365),
+            new Commercial("Photoshop", "Adobe", 250.00m, DateTime.Now.AddDays(-400), 365)
+        };
+
+        Console.WriteLine("All software:");
+        foreach (var sw in softwares)
+        {
+            sw.PrintInformation();
+        }
+
+        Console.WriteLine("\nUsable software:");
+        foreach (var sw in softwares)
+        {
+            if (sw.CanBeUsed())
+                sw.PrintInformation();
+        }
+
+        Console.WriteLine("\nSorted by name:");
+        Array.Sort(softwares);
+        foreach (var sw in softwares)
+        {
+            sw.PrintInformation();
+        }
+}
+
+static void Task3()
+{
+    
+}
+
+static void Task4()
+{
 
 }
-class UserClass
-{
-    public string Name { get; set; }
-}
+
+Task2();
