@@ -41,4 +41,9 @@ public class InsuranceCompany : Company, IInsuranceInfo, IComparable<InsuranceCo
         if (other == null) return 1;
         return this.commission.CompareTo(other.commission);
     }
+
+    public new IEnumerator<Company> GetEnumerator()
+    {
+        yield return this;
+    }
 }

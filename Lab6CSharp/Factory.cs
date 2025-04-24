@@ -41,4 +41,9 @@ public class Factory : Company, IFactoryInfo, IComparable<Factory>
         if (other == null) return 1;
         return this.employees.CompareTo(other.employees);
     }
+
+    public new IEnumerator<Company> GetEnumerator()
+    {
+        yield return this;
+    }
 }

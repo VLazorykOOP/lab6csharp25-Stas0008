@@ -42,6 +42,9 @@ class Shareware : IProgramSoftware
 
     public Shareware(string name, string manufacturer, DateTime dateInstall, int period)
     {
+        if (period < 0)
+            throw new InvalidSoftwareDataException("Free trial period dont have a negative.");
+
         Name = name;
         Manufacturer = manufacturer;
         DateInstall = dateInstall;
@@ -71,6 +74,12 @@ class Commercial : IProgramSoftware
 
     public Commercial(string name, string manufacturer, decimal price, DateTime dateInstall, int shelfLife)
     {
+        if (price < 0)
+            throw new InvalidSoftwareDataException("Price dont have a negative.");
+
+        if (shelfLife < 0)
+            throw new InvalidSoftwareDataException("Shelf life dont have a negative.");
+
         Name = name;
         Manufacturer = manufacturer;
         Price = price;

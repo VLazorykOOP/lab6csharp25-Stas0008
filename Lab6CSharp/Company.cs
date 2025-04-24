@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Data;
 using static System.Console;
 
 
-public abstract class Company {
+public abstract class Company : IEnumerable<Company>
+{
     private String name;
 
     public string GetName() => name;
@@ -21,5 +23,15 @@ public abstract class Company {
 
     public virtual void Show() {
         WriteLine("Company name: " + name);
+    }
+
+    public IEnumerator<Company> GetEnumerator()
+    {
+        yield return this;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

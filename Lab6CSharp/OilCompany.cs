@@ -46,4 +46,9 @@ public class OilCompany : Company, IOilInfo, IComparable<OilCompany>
         if (other == null) return 1;
         return this.production.CompareTo(other.production);
     }
+
+    public new IEnumerator<Company> GetEnumerator()
+    {
+        yield return this;
+    }
 }

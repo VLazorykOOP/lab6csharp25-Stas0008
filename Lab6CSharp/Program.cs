@@ -41,7 +41,7 @@ static void Task1()
 static void Task2()
 {
     IProgramSoftware[] softwares = new IProgramSoftware[]
-        {
+        { 
             new Free("Notepad++", "Don Ho"),
             new Shareware("WinRAR", "Rarlab", DateTime.Now.AddDays(-10), 40),
             new Shareware("SomeTrialApp", "Trial Inc.", DateTime.Now.AddDays(-60), 30),
@@ -72,12 +72,47 @@ static void Task2()
 
 static void Task3()
 {
-    
+    try
+        {
+            decimal ex = decimal.MaxValue;
+
+            IProgramSoftware[] softwareArray = new IProgramSoftware[]
+            {
+                new Shareware("WinRAR", "Rarlab", DateTime.Now.AddDays(10), -5),
+
+                new Commercial("BadApp", "Unknown", -100, DateTime.Now, 365),
+                
+                new Commercial("HugeApp", "GiganticSoft", checked(ex + 1), DateTime.Now, 365)
+            };
+        }
+        catch (InvalidSoftwareDataException ex)
+        {
+            WriteLine("Error validation: " + ex.Message);
+        }
+        catch (OverflowException)
+        {
+            WriteLine("Overflow error");
+        }
+        catch (Exception ex)
+        {
+            WriteLine("Other error: " + ex.Message);
+        }
 }
 
 static void Task4()
 {
+     List<Company> companies = new List<Company>
+        {
+            new OilCompany("OilCorp", "Texas", 1000.0, 500),
+            new InsuranceCompany("InsurePlus", "Health", 0.15),
+            new Factory("BuildIt", "Manufacturing", 200)
+        };
 
+        foreach (var company in companies)
+        {
+            company.Show();
+            WriteLine();
+        }
 }
 
-Task2();
+Task4();
